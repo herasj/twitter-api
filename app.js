@@ -14,15 +14,19 @@ const client = new Twitter({
 const parameters = {
   track: "#DeDuqueDesapruebo",
 };
+fs.appendFile('tweetinfo.txt','Tendencia: '+parameters.track+'\n \n',(err) => {
+  if (err) throw err
+}
+);
 
 const stream = client.stream("statuses/filter", parameters)
   .on("start", response => console.log("start"))
-  .on("data", tweet => (tweet) => {
-    console.table(tweet);
-    fs.appendFile('tweetinfo.txt',tweet.text+'\n', function (err) {
+  .on("data", tweet => (() => {
+    let info = `user: @${tweet.user.screen_name} date: ${tweet.created_at}  location: ${tweet.user.location}\n${tweet.text}\n\n\n`;
+    fs.appendFile('tweetinfo.txt',info, function (err) {
       if (err) throw err;
     });  
-  }
+  })()
   )
   .on("ping", () => console.log("ping"))
   .on("error", error => console.log("error", error))
