@@ -1,5 +1,6 @@
 const Twitter = require('twitter-lite');
-require('dotenv').config()
+require('dotenv').config();
+const fs = require('fs');
 
 const client = new Twitter({
   subdomain: "api",
@@ -9,13 +10,20 @@ const client = new Twitter({
   access_token_secret: process.env.API_SECRET 
 })
 
+
 const parameters = {
   track: "#DeDuqueDesapruebo",
 };
 
 const stream = client.stream("statuses/filter", parameters)
   .on("start", response => console.log("start"))
-  .on("data", tweet => console.log("data", tweet.text))
+  .on("data", tweet => (tweet) => {
+    console.table(tweet);
+    fs.appendFile('tweetinfo.txt',tweet.text+'\n', function (err) {
+      if (err) throw err;
+    });  
+  }
+  )
   .on("ping", () => console.log("ping"))
   .on("error", error => console.log("error", error))
   .on("end", response => console.log("end"));
