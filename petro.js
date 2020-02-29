@@ -2,7 +2,7 @@ const Twitter = require('twitter-lite');
 require('dotenv').config();
 const fs = require('fs');
 const db = require('./services/mongo');
-const controller = require('./controllers/uribe.controller');
+const controller = require('./controllers/petro.controller');
 
 const client = new Twitter({
   subdomain: "api",
@@ -13,7 +13,7 @@ const client = new Twitter({
 })
 
 const parameters = {
-  track: "#PetroñerosVáyanseAVenezuela",
+  track: "#FueraUribismoDeColombia",
 };
 
 db.then(

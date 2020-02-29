@@ -10,11 +10,11 @@ const schema = new Schema(
         required: true
       },
       name: {
-        type: Date,
+        type: String,
         trim: true,
         required: true
       },
-      lastTweetDate: {
+      date: {
         type: Date,
         required: true
       },
@@ -24,17 +24,12 @@ const schema = new Schema(
       },
       location:{
           type: String,
-          required: true
       },
       hashtag:{
         type: String,
         trim: true,
         required: true
       }
-    },
-    {
-      timestamps: true,
-      versionKey: false
     });
   
   module.exports = schema
