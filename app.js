@@ -1,6 +1,8 @@
 const Twitter = require('twitter-lite');
 require('dotenv').config();
 const fs = require('fs');
+const db = require('./services/mongo');
+const controller = require('./controllers/uribe.controller');
 
 const client = new Twitter({
   subdomain: "api",
@@ -10,24 +12,31 @@ const client = new Twitter({
   access_token_secret: process.env.API_SECRET 
 })
 
-
 const parameters = {
   track: "#DeDuqueDesapruebo",
 };
-fs.appendFile('tweetinfo.txt','Tendencia: '+parameters.track+'\n \n',(err) => {
-  if (err) throw err
-}
-);
 
-const stream = client.stream("statuses/filter", parameters)
-  .on("start", response => console.log("start"))
-  .on("data", tweet => (() => {
-    let info = `user: @${tweet.user.screen_name} date: ${tweet.created_at}  location: ${tweet.user.location}\n${tweet.text}\n\n\n`;
-    fs.appendFile('tweetinfo.txt',info, function (err) {
-      if (err) throw err;
-    });  
-  })()
-  )
-  .on("ping", () => console.log("ping"))
-  .on("error", error => console.log("error", error))
-  .on("end", response => console.log("end"));
+db.then(
+  () => {
+    console.log('Running Mongo Database')
+    
+    const stream = client.stream("statuses/filter", parameters)
+      .on("start", response => console.log("start"))
+      .on("data", tweet => (async () => {
+        const data ={
+          username: tweet.user.screen_name,
+          name: tweet.user.name,
+          lastTweetDate: tweet.created_at,
+          tweet: tweet.text,
+          location: tweet.user.location,
+          hashtag: parameters.track
+        }
+        await controller.create(data);
+      })()
+      )
+      .on("ping", () => console.log("ping"))
+      .on("error", error => console.log("error", error))
+      .on("end", response => console.log("end"));
+  },
+  error => console.warn(error)
+)
