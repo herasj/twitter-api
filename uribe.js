@@ -1,7 +1,7 @@
 const db = require('./services/mongo');
 const controller = require('./controllers/uribe.controller');
 const client = require('./twitter');
-
+var num = 1;
 const parameters = {
   track: "#PetroñerosVáyanseAVenezuela",
 };
@@ -22,6 +22,8 @@ db.then(
           hashtag: parameters.track
         }
         await controller.create(data);
+        console.log('Success! '+num);
+        num++;
       })()
       )
       .on("ping", () => console.log("ping"))
