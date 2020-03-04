@@ -1,7 +1,7 @@
 'use strict'
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
-const followerSchema = require('./followers.schema');
+const followerSchema = require('./find.schema');
 const schema = new Schema(
     {
       username: {
@@ -29,9 +29,6 @@ const schema = new Schema(
         type: String,
         trim: true,
         required: true
-      },
-      followers:{
-        type:[followerSchema]
       }
     });
   

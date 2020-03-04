@@ -9,14 +9,23 @@ const schema = new Schema(
         trim: true,
         required: true
       },
-      description: {
+      followers: {
         type: String
+      },
+      following: {
+        type: Number
+      },
+      tweets: {
+        type: Number
+      },
+      retweets: {
+        type: Number
       },
       date: {
         type: Date
       },
-      location:{
-          type: String,
+      usernumbers:{
+          type: Number,
       },
     });
   
