@@ -18,10 +18,7 @@ const schema = new Schema(
       tweets: {
         type: Number
       },
-      retweets: {
-        type: Number
-      },
-      date: {
+      created_at: {
         type: Date
       },
       usernumbers:{
