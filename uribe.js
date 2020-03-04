@@ -1,8 +1,10 @@
 const db = require('./services/mongo');
 const controller = require('./controllers/uribe.controller');
 const client = require('./twitter');
+// const fs = require('fs');
+
 const parameters = {
-  track: "#RespeteALosNiñosSamper",
+  track: "#LaJepDebeSerEliminada",
 };
 
 db.then(
@@ -19,21 +21,32 @@ db.then(
           location: tweet.user.location,
           hashtag: parameters.track
         }
-        const followers = await client.get('followers/list',{screen_name: tweet.user.screen_name});
-        var array = [];
-        console.table(followers);
-        for (const iterator in followers) {
-          if (iterator.screen_name != undefined){
-          array.push({
-            username: iterator.screen_name,
-            description: iterator.description,
-            date: iterator.created_at,
-            location: iterator.location
-          })
-        }
-        }
-        console.log("Terminó el array");
-        console.dir(array)
+
+      //   const followers = await client.get('followers/list',{screen_name: tweet.user.screen_name, count:1});
+      //   var array = [];
+      //   // const jsonfile = JSON.parse(followers);
+      //    const jsoncontent = JSON.stringify(followers);
+      //    fs.writeFile("output.json", jsoncontent, 'utf8', function (err) {
+      //     if (err) {
+      //         console.log("An error occured while writing JSON Object to File.");
+      //         return console.log(err);
+      //     }
+       
+      //     console.log("JSON file has been saved.");
+      // });
+        // for (const iterator in followers) {
+        //   if (iterator.screen_name != undefined){
+        //   array.push({
+        //     username: iterator.screen_name,
+        //     description: iterator.description,
+        //     date: iterator.created_at,
+        //     location: iterator.location
+        //   })
+        // }
+        // }
+        // console.log("Terminó el array");
+        // console.dir(array)
+        
         await controller.create(data);
       })()
       )
