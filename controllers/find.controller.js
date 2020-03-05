@@ -14,6 +14,13 @@ module.exports = {
     find: async () => {
       const users = await infoModel.aggregate(agg);
       return users;
+    },
+    create: async(data) => {
+      await model.create(data,(err) => {
+        if (err) throw err
+      }
+      )
     }
+    
     
 }

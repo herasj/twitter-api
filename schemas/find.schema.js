@@ -10,7 +10,7 @@ const schema = new Schema(
         required: true
       },
       followers: {
-        type: String
+        type: Number
       },
       following: {
         type: Number
@@ -19,11 +19,14 @@ const schema = new Schema(
         type: Number
       },
       created_at: {
-        type: Date
+        type: String
       },
       usernumbers:{
           type: Number,
       },
+      bot:{
+        type: Number
+      }
     });
   
   module.exports = schema
