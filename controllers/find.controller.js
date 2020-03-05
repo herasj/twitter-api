@@ -16,10 +16,17 @@ module.exports = {
       return users;
     },
     create: async(data) => {
-      await model.create(data,(err) => {
-        if (err) throw err
+      const result = await model.findOne({username: data.username});
+      if (!result){
+        await model.create(data,(err) => {
+          if (err) throw err
+        }
+        )
       }
-      )
+      else{
+        // console.log(`${data.username} existe :(`);
+      }
+      
     }
     
     
