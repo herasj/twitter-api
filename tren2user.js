@@ -3,7 +3,7 @@ const controller = require('./controllers/find.controller');
 const client = require('./twitter');
 
 const parameters = {
-    track: "#FelizJueves",
+    track: "#YoVotePorDuque",
   };
   db.then(() => {
     console.log('Running Mongo Database');

@@ -1,10 +1,10 @@
 const db = require('./services/mongo');
-const controller = require('./controllers/uribe.controller');
+const controller = require('./controllers/trending_user.controller');
 const client = require('./twitter');
 // const fs = require('fs');
 
 const parameters = {
-  track: "#LaJepDebeSerEliminada",
+  track: "#YoVotePorDuque", //Ht
 };
 
 db.then(
